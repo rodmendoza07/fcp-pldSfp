@@ -1,7 +1,7 @@
 USE LEAP
 GO
 
-ALTER PROCEDURE [dbo].[sp_authorithymaintenance]
+CREATE PROCEDURE [dbo].[sp_authorithymaintenance]
 (
 	@opt INT = 0
 	, @authId INT = 0
