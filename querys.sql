@@ -158,8 +158,24 @@ SELECT * FROM LEAP.dbo.tp_personabloqueada
 exec CATALOGOS.dbo.getInfoUser 'RICAPG', 'Porvenir#244'
 */
 
-ALTER TABLE LEAP.dbo.tc_tipo_lista_pld
-ADD label VARCHAR(30)
+--ALTER TABLE LEAP.dbo.tc_tipo_lista_pld
+--ADD label VARCHAR(30)
 
-ALTER TABLE LEAP.dbo.tc_tipo_lista_pld
-ADD CONSTRAINT def_label DEFAULT('') FOR label
+--ALTER TABLE LEAP.dbo.tc_tipo_lista_pld
+--ADD CONSTRAINT def_label DEFAULT('') FOR label
+
+select * from LEAP.dbo.tc_tipo_lista_pld
+
+--update LEAP.dbo.tc_tipo_lista_pld set
+--	label = 'label-danger'
+--WHERE id_tipo_lista_pld = 1
+
+
+--update LEAP.dbo.tc_tipo_lista_pld set
+--	label = 'label-warning'
+--WHERE id_tipo_lista_pld = 2
+
+
+update LEAP.dbo.tc_tipo_lista_pld set
+	label = 'label-info'
+WHERE id_tipo_lista_pld = 3
