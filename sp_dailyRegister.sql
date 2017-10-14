@@ -1,7 +1,7 @@
 USE LEAP
 GO
 
-ALTER PROCEDURE [dbo].[sp_dailyRegister] (
+CREATE PROCEDURE [dbo].[sp_dailyRegister] (
 	@option INT = 0
 	, @name VARCHAR(50) = ''
 	, @firstName VARCHAR(50) = ''
