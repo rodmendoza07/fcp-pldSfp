@@ -1,7 +1,7 @@
 USE LEAP
 GO
 
-CREATE PROCEDURE [dbo].[sp_dailyRequirement]
+ALTER PROCEDURE [dbo].[sp_dailyRequirement]
 (
 	@name VARCHAR(100) = ''
 	, @firstname VARCHAR(200) = ''
@@ -25,11 +25,14 @@ BEGIN
 			@branchOffice INT = 0
 			, @udt_personPLD udt_personPLD
 			, @gender VARCHAR(10) = ''
+			, @msg VARCHAR(300) = '' 
 		SELECT
 			@branchOffice = cve_depto
 		FROM CATALOGOS.dbo.tc_empleados
 		WHERE usuario = @appUser
 		
+		-- SELECT @branchOffice
+
 		INSERT INTO LEAP.dbo.tc_dailyRequirement (
 			nombre
 			, paterno
@@ -113,9 +116,7 @@ BEGIN
 			, pais
 			, gafi
 			, id_prospecto
-		) 
-		
-		SELECT
+		) SELECT
 			'PRV' + CONVERT(varchar, GETDATE(), 112) + REPLACE(CONVERT(varchar, GETDATE(),114),':','') 
 			, ''
 			, ''
@@ -181,11 +182,11 @@ BEGIN
 		WHERE nombre LIKE '%' + @name + '%'
 			AND paterno LIKE '%' + @firstname + '%'
 
-		--SELECT *
-		--FROM @udt_personPLD
+		IF (SELECT COUNT (*) FROM @udt_personPLD) <> 0 BEGIN
+			EXEC LEAP.dbo.sp_setPersonONPLD @udt_personPLD, @appUser, @ipAddress, @branchOffice, 1
+		END
 
-		EXEC LEAP.dbo.sp_setPersonONPLD @udt_personPLD, @appUser, @ipAddress, @branchOffice, 1
-		IF @@TRANCOUNT > 0 
+		IF @@TRANCOUNT > 0 BEGIN
 			COMMIT TRAN
 			SELECT 
 				dr.nombre + ' ' + dr.paterno + ' ' + dr.materno AS [name]
@@ -199,10 +200,11 @@ BEGIN
 			WHERE CONVERT(varchar, dr.dr_registerDate, 112) = CONVERT(VARCHAR, GETDATE(), 112)
 			ORDER BY id_persona DESC
 			SELECT 'El nombre se guardo correctamente' AS [message]
+		END
 	END TRY
 	BEGIN CATCH
 		IF @@TRANCOUNT > 0
 				ROLLBACK TRAN
-		SELECT 'ERROR' AS [message]
+		SET @msg = (SELECT SUBSTRING(ERROR_MESSAGE(), 1, 300))
 	END CATCH
 END
