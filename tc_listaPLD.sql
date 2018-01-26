@@ -8,6 +8,10 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
+IF OBJECT_ID('dbo.tc_listaPLD') IS NOT NULL 
+  DROP TABLE dbo.tc_listaPLD; 
+
+
 CREATE TABLE [dbo].[tc_listaPLD](
 	[id_listaPLD] [int] IDENTITY(1,1) NOT NULL,
 	[siglas] [varchar](10) NULL,
