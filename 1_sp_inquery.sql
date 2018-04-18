@@ -6,7 +6,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-ALTER procedure [dbo].[sp_inquery]
+CREATE procedure [dbo].[sp_inquery]
 AS
 BEGIN
      ; WITH cte AS(

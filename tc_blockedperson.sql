@@ -1,6 +1,9 @@
 USE [LEAP]
 GO
 
+IF OBJECT_ID('[dbo].[tc_blockedperson]') IS NOT NULL 
+  DROP TABLE [dbo].[tc_blockedperson]; 
+
 CREATE TABLE [dbo].[tc_blockedperson](
 	[blkd_id] [int] IDENTITY(1,1) NOT NULL,
 	[blkd_description] [varchar](40) NOT NULL,

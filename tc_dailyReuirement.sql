@@ -8,6 +8,9 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
+IF OBJECT_ID('[dbo].[tc_dailyRequirement]') IS NOT NULL 
+  DROP TABLE [dbo].[tc_dailyRequirement]; 
+
 CREATE TABLE [dbo].[tc_dailyRequirement](
 	[id_personabloqueda] [int] IDENTITY(1,1) NOT NULL,
 	[id_persona] [varchar](200) NULL,
